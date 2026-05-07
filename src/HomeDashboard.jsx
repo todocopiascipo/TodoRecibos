@@ -2,12 +2,18 @@ import { Link } from 'react-router-dom';
 
 const tools = [
   {
+<<<<<<< HEAD
     title: 'RecibosPro',
     description: 'Emití recibos, gestioná templates, productos, historial y PDFs desde el sistema principal.',
+=======
+    title: 'Recibos',
+    description: 'Emití recibos, gestioná templates, productos, historial y PDFs desde RecibosPro.',
+>>>>>>> 728f2f2 (Integra suite Todo Copias con rutas principales)
     path: '/recibos',
     icon: 'RP',
   },
   {
+<<<<<<< HEAD
     title: 'Calculadora de Presupuestos',
     description: 'Calculá rápidamente trabajos de fotocopias, impresiones, papeles especiales y anillados.',
     path: '/presupuestos',
@@ -19,6 +25,19 @@ const tools = [
     path: '/talonarios',
     icon: 'PDF',
   },
+=======
+    title: 'Generar Talonarios',
+    description: 'Numerá PDFs de talonarios con ORIGINAL/COPIA, prefijos, rangos y vista previa.',
+    path: '/talonarios',
+    icon: 'PDF',
+  },
+  {
+    title: 'Calcular Presupuestos',
+    description: 'Calculá trabajos de fotocopias, impresiones, papeles especiales y anillados.',
+    path: '/presupuestos',
+    icon: '$',
+  },
+>>>>>>> 728f2f2 (Integra suite Todo Copias con rutas principales)
 ];
 
 export default function HomeDashboard() {
@@ -26,10 +45,17 @@ export default function HomeDashboard() {
     <main className="min-h-screen bg-slate-100 px-4 py-6 text-slate-950 md:px-8">
       <section className="mx-auto max-w-6xl">
         <header className="rounded-2xl border border-white/80 bg-white p-6 shadow-panel md:p-8">
+<<<<<<< HEAD
           <p className="text-sm font-black uppercase tracking-[0.18em] text-teal-700">Todo Copias</p>
           <h1 className="mt-3 text-3xl font-black tracking-tight md:text-5xl">Panel principal</h1>
           <p className="mt-3 max-w-2xl text-base font-semibold leading-7 text-slate-500">
             Elegí una herramienta para trabajar. Cada módulo mantiene su flujo propio, con acceso claro para volver al inicio.
+=======
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#1e61a8]">Todo Copias</p>
+          <h1 className="mt-3 text-3xl font-black tracking-tight md:text-5xl">Panel principal</h1>
+          <p className="mt-3 max-w-2xl text-base font-semibold leading-7 text-slate-500">
+            Elegí una herramienta para trabajar. Esta es la única Home oficial de la suite.
+>>>>>>> 728f2f2 (Integra suite Todo Copias con rutas principales)
           </p>
         </header>
 

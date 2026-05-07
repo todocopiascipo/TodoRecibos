@@ -6,7 +6,11 @@ export default function ToolFrame({ title, description, children }) {
       <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/95 px-4 py-3 backdrop-blur md:px-6">
         <div className="mx-auto flex max-w-[1520px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
+<<<<<<< HEAD
             <p className="text-xs font-black uppercase tracking-[0.16em] text-teal-700">Todo Copias</p>
+=======
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#1e61a8]">Todo Copias</p>
+>>>>>>> 728f2f2 (Integra suite Todo Copias con rutas principales)
             <h1 className="text-xl font-black tracking-tight text-slate-950">{title}</h1>
             {description && <p className="text-sm font-semibold text-slate-500">{description}</p>}
           </div>
