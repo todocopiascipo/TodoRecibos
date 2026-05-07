@@ -29,6 +29,7 @@ export default function ReceiptForm({
   onClearReceipt,
   onUseSample,
   onEmit,
+  onEmitAndShare,
   onTemplateChange,
   onSaveProduct,
   onProductNameCheck,
@@ -119,6 +120,9 @@ export default function ReceiptForm({
       <div className="flex flex-col gap-3 sm:flex-row">
         <button onClick={onEmit} className="touch-target rounded-lg bg-teal-700 px-5 py-3 text-base font-black text-white shadow-sm transition hover:bg-teal-800">
           Emitir recibo
+        </button>
+        <button onClick={onEmitAndShare} className="touch-target rounded-lg bg-slate-950 px-5 py-3 text-base font-black text-white shadow-sm transition hover:bg-slate-800">
+          Emitir y compartir
         </button>
         <button onClick={onClearReceipt} className="touch-target rounded-lg border border-slate-200 bg-white px-5 py-3 text-base font-bold text-slate-700 transition hover:bg-slate-50">
           Limpiar recibo

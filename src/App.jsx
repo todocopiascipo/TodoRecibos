@@ -2,7 +2,14 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import ReceiptHistory from './components/history/ReceiptHistory';
 import ManageProductsPage from './components/products/ManageProductsPage';
 import ReceiptForm from './components/receipts/ReceiptForm';
-import { createReceiptPdf } from './components/receipts/PdfGenerator';
+import {
+  createReceiptPdf,
+  createReceiptPdfFile,
+  downloadReceiptPdf,
+  generateReceiptPdfBlob,
+  openWhatsAppFallback,
+  shareReceiptPdf,
+} from './components/receipts/PdfGenerator';
 import ReceiptPreview from './components/ReceiptPreview';
 import TemplateEditor from './components/templates/TemplateEditor';
 import TemplateGallery from './components/templates/TemplateGallery';
@@ -160,7 +167,26 @@ export default function App() {
     pdf.print();
   }
 
-  async function handleEmitReceipt() {
+  function validateReceiptForIssue() {
+    if (!activeTemplate) {
+      flash('Selecciona un template antes de emitir');
+      return false;
+    }
+
+    if (!currentReceipt.receiptNumber?.trim()) {
+      flash('Completa el numero de recibo');
+      return false;
+    }
+
+    if (!currentReceipt.items?.length) {
+      flash('Agrega al menos un item');
+      return false;
+    }
+
+    return true;
+  }
+
+  async function issueCurrentReceipt() {
     const calculated = buildPreviewReceipt(currentReceipt);
     const saved = await saveReceipt({
       ...currentReceipt,
@@ -173,8 +199,45 @@ export default function App() {
 
     setReceipts(await getReceipts());
     setViewReceipt(saved);
+    return { saved, calculated };
+  }
+
+  async function handleEmitReceipt() {
+    if (!validateReceiptForIssue()) return;
+
+    await issueCurrentReceipt();
     flash('Recibo emitido y guardado');
-    await downloadFromElement(previewRef.current, calculated, activeTemplate);
+  }
+
+  async function handleEmitAndShareReceipt() {
+    if (!validateReceiptForIssue()) return;
+
+    const { saved, calculated } = await issueCurrentReceipt();
+    const fileName = `${calculated.receiptNumber || calculated.number || 'recibo'}.pdf`;
+    const pdfBlob = await generateReceiptPdfBlob(previewRef.current, activeTemplate.printSettings);
+    const pdfFile = createReceiptPdfFile(pdfBlob, fileName);
+
+    try {
+      const shared = await shareReceiptPdf(pdfFile, calculated);
+
+      if (shared) {
+        flash('Recibo emitido y listo para compartir');
+        return;
+      }
+
+      downloadReceiptPdf(pdfBlob, fileName);
+      openWhatsAppFallback(calculated);
+      flash('PDF descargado. WhatsApp abierto como alternativa');
+    } catch (error) {
+      if (error?.name === 'AbortError') {
+        flash('Recibo emitido y guardado');
+        return;
+      }
+
+      downloadReceiptPdf(pdfBlob, fileName);
+      openWhatsAppFallback(saved);
+      flash('PDF descargado. WhatsApp abierto como alternativa');
+    }
   }
 
   async function handleDuplicateReceipt(id) {
@@ -345,6 +408,7 @@ export default function App() {
                 onClearReceipt={handleClearReceipt}
                 onUseSample={handleUseSampleReceipt}
                 onEmit={handleEmitReceipt}
+                onEmitAndShare={handleEmitAndShareReceipt}
                 onTemplateChange={handleActivateTemplate}
                 onSaveProduct={handleSaveProduct}
                 onProductNameCheck={productNameExists}
