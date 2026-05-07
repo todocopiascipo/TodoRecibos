@@ -27,11 +27,7 @@ createRoot(document.getElementById('root')).render(
         <Route
           path="/recibos"
           element={
-<<<<<<< HEAD
-            <ToolFrame title="RecibosPro" description="Sistema de emisión de recibos, templates, productos e historial.">
-=======
             <ToolFrame title="RecibosPro" description="Sistema de emision de recibos, templates, productos e historial.">
->>>>>>> 728f2f2 (Integra suite Todo Copias con rutas principales)
               <App />
             </ToolFrame>
           }
@@ -40,13 +36,8 @@ createRoot(document.getElementById('root')).render(
           path="/presupuestos"
           element={
             <ExternalTool
-<<<<<<< HEAD
-              title="Calculadora de Presupuestos"
-              description="Herramienta integrada desde /presupuestos.html."
-=======
               title="Calcular Presupuestos"
               description="Calculadora integrada desde /presupuestos.html."
->>>>>>> 728f2f2 (Integra suite Todo Copias con rutas principales)
               src="/presupuestos.html"
             />
           }
@@ -55,11 +46,7 @@ createRoot(document.getElementById('root')).render(
           path="/talonarios"
           element={
             <ExternalTool
-<<<<<<< HEAD
-              title="Generador de Talonarios"
-=======
               title="Generar Talonarios"
->>>>>>> 728f2f2 (Integra suite Todo Copias con rutas principales)
               description="Numerador PDF ORIGINAL/COPIA integrado."
               src="/talonarios-app/index.html"
             />
